@@ -8,7 +8,6 @@ import java.text.SimpleDateFormat;
 
 // TODO desktop icon, simple GUI with some inputs
 // TODO prompt user for input: project name, one word like camelCase or dash-split
-// save this to variable, use it to title files
 
 /**
  * Created by timday on 10/12/17.
