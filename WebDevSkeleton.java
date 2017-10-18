@@ -1,10 +1,14 @@
+package tinker;
+
 import java.io.*;
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
+
 // TODO desktop icon, simple GUI with some inputs
 // TODO prompt user for input: project name, one word like camelCase or dash-split
+// save this to variable, use it to title files
 
 /**
  * Created by timday on 10/12/17.
@@ -26,41 +30,44 @@ public class WebDevSkeleton {
             pw.println("<!DOCTYPE html>");
             pw.println("<html lang=\"en\">");
             pw.println("");
-            pw.println("<!-- Project: " + proj + "\n\t Author: Tim Day\n\t Created: " + date + "\n-->");
-            pw.println("");
-            pw.println("<head>");
-            pw.println("\t<meta charset=\"utf-8\">");
-            pw.println("\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">");
-            pw.println("\t<link rel=\"stylesheet\" href=\"styles/global.css\">");
-            pw.println("\t<link rel=\"stylesheet\" href=\"styles/normalize.css\">");
-            pw.println("\t<title></title>");
-            pw.println("\t<meta name=\"description\" content=\"\">");
-            pw.println("\t<meta name=\"author\" content=\"Tim Day\">");
-            pw.println("\t");
-            pw.println("\t<!-- Font Imports -->");
-            pw.println("\t<link href=\"https://fonts.googleapis.com/css?family=Raleway\" rel=\"stylesheet\">");
-            pw.println("");
-            pw.println("\t<!-- OG tags for social sharing -->");
-            pw.println("\t<meta property=\"og:site_name\" content=\"\"/>");
-            pw.println("\t<meta property=\"og:title\" content=\"\"/>");
-            pw.println("\t<meta property=\"og:description\" content=\"\"/>");
-            pw.println("\t<meta property=\"og:image\" content=\"\">");
-            pw.println("\t<meta property=\"og:url\" content=\"\">");
-            pw.println("\t<meta property=\"og:type\" content=\"website\"/>");
-            pw.println("\t");
-            pw.println("</head>");
-            pw.println("");
-            pw.println("<body>");
-            pw.println("\t<header></header>");
-            pw.println("\t<main></main>");
-            pw.println("\t<footer></footer>");
-            pw.println("");
-            pw.println("");
-            pw.println("");
-            pw.println("<script type=\"text/javascript\" src=\"global.js\"></script>");
-            pw.println("</body>");
-            pw.println("");
-            pw.println("</html>");
+            pw.println("<!-- \n\tProject: " + proj + "\n\tAuthor: Tim Day\n\tCreated: " + date + "\n-->");
+            pw.println("\n<head>\n" +
+                    "  <meta charset=\"utf-8\">\n" +
+                    "  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
+                    "  <link rel=\"stylesheet\" href=\"styles/global.css\">\n" +
+                    "  <link rel=\"stylesheet\" href=\"styles/normalize.css\">\n" +
+                    "  <title></title>\n" +
+                    "  <meta name=\"description\" content=\"\">\n" +
+                    "  <meta name=\"author\" content=\"Tim Day\">\n" +
+                    "\n" +
+                    "  <!-- Font Imports -->\n" +
+                    "  <link href=\"https://fonts.googleapis.com/css?family=Raleway\" rel=\"stylesheet\">\n" +
+                    "\n" +
+                    "  <!-- OG tags for social sharing -->\n" +
+                    "  <meta property=\"og:site_name\" content=\"\"/>\n" +
+                    "  <meta property=\"og:title\" content=\"\"/>\n" +
+                    "  <meta property=\"og:description\" content=\"\"/>\n" +
+                    "  <meta property=\"og:image\" content=\"\">\n" +
+                    "  <meta property=\"og:url\" content=\"\">\n" +
+                    "  <meta property=\"og:type\" content=\"website\"/>\n" +
+                    "\t\n" +
+                    "</head>\n" +
+                    "\n" +
+                    "<body>\n" +
+                    "  <header></header>\n" +
+                    "  <main>\n" +
+                    "    <figure>\n" +
+                    "      <img src=\"http://placehold.it/960x350\" alt=\"a placeholder img\"/>\n" +
+                    "      <figcaption>a placeholder img</figcaption>\n" +
+                    "    </figure>\n" +
+                    "    \n" +
+                    "  </main>\n" +
+                    "  <footer></footer>\n" +
+                    "\n" +
+                    "<script type=\"text/javascript\" src=\"global.js\"></script>\n" +
+                    "</body>\n" +
+                    "\n" +
+                    "</html>");
             pw.close();
 
 
@@ -824,12 +831,14 @@ public class WebDevSkeleton {
             pw3.println("/node_modules/");
             pw3.close();
 
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
     }
 
+    
     public static void main(String[] args) {
 
         DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
@@ -839,7 +848,6 @@ public class WebDevSkeleton {
         String path = System.getProperty("user.home") + "/Desktop/" + args[0];
 
         System.out.println(System.getProperty("user.home"));
-
 
         if (args.length == 1) {
 
@@ -861,10 +869,12 @@ public class WebDevSkeleton {
             creator.makeGruntReadme(path);
             creator.makeGitHubFiles(date, path, proj);
 
+
             System.out.println("----------------------");
 
         } else {
             System.out.println("enter your file name as an argument");
+
         }
     } //main
 }
