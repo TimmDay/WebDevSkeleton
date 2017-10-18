@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 
 // TODO desktop icon, simple GUI with some inputs
 // TODO prompt user for input: project name, one word like camelCase or dash-split
+// save this to variable, use it to title files
 
 /**
  * Created by timday on 10/12/17.
@@ -38,6 +39,7 @@ public class WebDevSkeleton {
                     "  <title></title>\n" +
                     "  <meta name=\"description\" content=\"\">\n" +
                     "  <meta name=\"author\" content=\"Tim Day\">\n" +
+                    "  <meta name=\"keywords\" content=\"words, comma, separted\">\n" +
                     "\n" +
                     "  <!-- Font Imports -->\n" +
                     "  <link href=\"https://fonts.googleapis.com/css?family=Raleway\" rel=\"stylesheet\">\n" +
@@ -837,7 +839,8 @@ public class WebDevSkeleton {
         }
     }
 
-    
+
+
     public static void main(String[] args) {
 
         DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
@@ -847,6 +850,7 @@ public class WebDevSkeleton {
         String path = System.getProperty("user.home") + "/Desktop/" + args[0];
 
         System.out.println(System.getProperty("user.home"));
+
 
         if (args.length == 1) {
 
@@ -876,4 +880,6 @@ public class WebDevSkeleton {
 
         }
     } //main
+
+
 }
