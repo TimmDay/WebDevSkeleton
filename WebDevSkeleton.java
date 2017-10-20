@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-
+import java.util.Scanner;
 
 // TODO desktop icon, simple GUI with some inputs
 // TODO prompt user for input: project name, one word like camelCase or dash-split
@@ -17,6 +17,7 @@ public class WebDevSkeleton {
 
     /**
      * creates a HTML file and populates it with the skeleton code I need every time
+     * the 'role' attributes are for screen reader accessibility. look up ARIA
      */
     public void makeHTMLTemplate(String date, String path, String proj) {
         try {
@@ -40,8 +41,9 @@ public class WebDevSkeleton {
                     "  <meta name=\"description\" content=\"\">\n" +
                     "  <meta name=\"author\" content=\"Tim Day\">\n" +
                     "  <meta name=\"keywords\" content=\"words, comma, separted\">\n" +
-                    "\n" +
-                    "  <!-- Font Imports -->\n" +
+                    "  <link rel=\"stylesheet\" href=\"styles/global.css\">\n" +
+                    "  <link rel=\"stylesheet\" href=\"fontello/css/fontello.css\">\n\n" +
+                    "  <!-- Font Imports. Keep to 2 max to reduce http requests -->\n" +
                     "  <link href=\"https://fonts.googleapis.com/css?family=Raleway\" rel=\"stylesheet\">\n" +
                     "\n" +
                     "  <!-- OG tags for social sharing -->\n" +
@@ -52,32 +54,32 @@ public class WebDevSkeleton {
                     "  <meta property=\"og:url\" content=\"\">\n" +
                     "  <meta property=\"og:type\" content=\"website\"/>\n" +
                     "\t\n" +
-                    "</head>\n" +
-                    "\n" +
+                    "</head>\n");
+            pw.println("\n" +
                     "<body>\n" +
-                    "  <header></header>\n" +
-                    "  <main>\n" +
+                    "  <header role=\"banner\"></header>\n\n" +
+                    "  <nav role=\"navigation\">\n" +
+                    "    <ul>\n" +
+                    "      <li></li>\n" +
+                    "    </ul>\n" +
+                    "  </nav>\n\n" +
+                    "  <main role=\"main\">\n" +
                     "    <figure>\n" +
                     "      <img src=\"http://placehold.it/960x350\" alt=\"a placeholder img\"/>\n" +
                     "      <figcaption>a placeholder img</figcaption>\n" +
                     "    </figure>\n" +
-                    "    \n" +
-                    "  </main>\n" +
-                    "  <footer></footer>\n" +
-                    "\n" +
+                    "  </main>\n\n" +
+                    "  <footer role=\"contentinfo\"></footer>\n\n" +
+                    "<script type=\"text/javascript\" src=\"#\"></script> // libs here\n" +
                     "<script type=\"text/javascript\" src=\"global.js\"></script>\n" +
                     "</body>\n" +
                     "\n" +
                     "</html>");
             pw.close();
 
+            System.out.println("HTML file created and populated!");
+            System.out.println("ARIA accessibility landmarks added to HTML");
 
-
-            if (html.createNewFile()){
-                System.out.println("HTML file created and populated!");
-            }else{
-                System.out.println("HTML already exists.");
-            }
         } catch (Exception e){
             System.out.println(e.getMessage());
             e.printStackTrace();
@@ -87,7 +89,6 @@ public class WebDevSkeleton {
 
     /**
      * creates a CSS file and adds some catchalls that I always add anyway
-     * @param proj - program requires user input of the project name
      */
     public void makeCSSTemplate(String date, String path, String proj) {
         try {
@@ -101,22 +102,23 @@ public class WebDevSkeleton {
             pw.println("/** Project: " +proj+ "\n\tDate: " + date+ "\n\tAuthor: Tim Day\n*/\n");
             pw.println("/* catchall - no-scroll resizing for smaller devices */");
             pw.println("img, embed, object, video {");
-            pw.println("\tmax-width: 100%;");
-            pw.println("\theight: auto;");
+            pw.println("  max-width: 100%;");
+            pw.println("  height: auto;");
             pw.println("}");
-            pw.println("/* catchall - tap space for smaller devices */");
+            pw.println("/* ACCESSIBILITY */");
+            pw.println("// tap target and clearance space for smaller devices */");
             pw.println("nav a, button {");
-            pw.println("\tmin-height: 48px;");
-            pw.println("\tmin-width: 48px;");
+            pw.println("  min-height: 48px;");
+            pw.println("  min-width: 48px;");
             pw.println("}");
-            pw.println("");
+            pw.println("/* ensures html5 elements are displayed block, so screen reader can find them */");
+            pw.println("header, nav, main, footer, article, section, aside {");
+            pw.println("  display: block;");
+            pw.println("}");
             pw.close();
 
-            if (css.createNewFile()) {
-                System.out.println("Styles directory is created!");
-            } else {
-                System.out.println("Styles directory already exists.");
-            }
+            System.out.println("Styles directory is created!");
+
         } catch (Exception e){
             System.out.println(e.getMessage());
             e.printStackTrace();
@@ -176,9 +178,7 @@ public class WebDevSkeleton {
                     "  font-size: 2em;\n" +
                     "  margin: 0.67em 0;\n" +
                     "}");
-            pw.println("");
-
-            pw.println("");
+            pw.println("\n");
             pw.println("/* Grouping content\n" +
                     "   ========================================================================== */\n" +
                     "/**\n");
@@ -191,15 +191,12 @@ public class WebDevSkeleton {
                     "main { /* 1 */\n" +
                     "  display: block;\n" +
                     "}\n");
-
             pw.println("/**\n" +
                     " * Add the correct margin in IE 8.\n" +
                     " */\n" +
                     "figure {\n" +
                     "  margin: 1em 40px;\n" +
                     "}\n");
-
-
             pw.println("/**\n" +
                     " * 1. Add the correct box sizing in Firefox.\n" +
                     " * 2. Show the overflow in Edge and IE.\n" +
@@ -209,8 +206,6 @@ public class WebDevSkeleton {
                     "  height: 0; /* 1 */\n" +
                     "  overflow: visible; /* 2 */\n" +
                     "}\n");
-
-
             pw.println("/**\n" +
                     " * 1. Correct the inheritance and scaling of font size in all browsers.\n" +
                     " * 2. Correct the odd `em` font sizing in all browsers.\n" +
@@ -503,19 +498,13 @@ public class WebDevSkeleton {
                     "  display: none;\n" +
                     "}");
             pw.println("");
-
-
-
             pw.close();
-
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
-
     }
-
 
     /**
      * creates a scripts dir and js file, populated with any catchall js I am using
@@ -523,7 +512,6 @@ public class WebDevSkeleton {
      */
     public void makeJSTemplate(String date, String path) {
         try {
-
             //create scripts directory and js file
             File js = new File(path + "//src//scripts//global.js");
             js.getParentFile().mkdirs();
@@ -539,12 +527,7 @@ public class WebDevSkeleton {
             js.getParentFile().mkdirs();
             lib.getCanonicalFile().mkdir();
 
-
-            if (js.createNewFile()){
-                System.out.println("Scripts directory is created!");
-            }else{
-                System.out.println("Scripts directory already exists.");
-            }
+            System.out.println("Scripts directory is created!");
 
         } catch (Exception e){
             System.out.println(e.getMessage());
@@ -559,7 +542,6 @@ public class WebDevSkeleton {
      */
     public void makeAssetsDirectories(String path) {
         try {
-
             // Assets Directory - Assets/images/
             File ass = new File(path + "//src//assets//photos");
             ass.getParentFile().mkdirs();
@@ -568,11 +550,7 @@ public class WebDevSkeleton {
             File icons = new File(path + "//src//assets//icons");
             icons.getCanonicalFile().mkdir();
 
-            if (ass.exists() && ass.isDirectory()){
-                System.out.println("Assets and images directories created!");
-            }else{
-                System.out.println("Assets and images directories already exist.");
-            }
+            System.out.println("Assets and photos/icons directories created!");
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -581,14 +559,11 @@ public class WebDevSkeleton {
     }
 
     /**
-     *
-     * @param path
-     * @param proj
+     * make package.json file for Grunt
      */
     public void makeGruntPackageJS(String path, String proj) {
 
         try {
-
             //populate the package.js file
             PrintWriter pw = new PrintWriter(new FileOutputStream(path + "//package.json"));
             pw.println("{");
@@ -603,6 +578,7 @@ public class WebDevSkeleton {
                     "  }");
             pw.println("}");
             pw.close();
+            System.out.println("package.json file created");
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -611,13 +587,12 @@ public class WebDevSkeleton {
     }
 
     /**
-     *
+     * make the Gruntfile.js, with my go-to configs set up
      * @param path
      */
     public void makeGruntFile(String path) {
 
         try {
-
             //populate the Gruntfile.js
             PrintWriter pw2 = new PrintWriter(new FileOutputStream(path + "//Gruntfile.js"));
 
@@ -744,6 +719,7 @@ public class WebDevSkeleton {
                     "  grunt.registerTask('default', ['mkdir','concat','uglify','htmlmin','cssmin','clean','copy','responsive_images']);");
             pw2.println("};"); //end file
             pw2.close();
+            System.out.println("Gruntfile.js file created and configured for plug ins in readme");
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -752,18 +728,18 @@ public class WebDevSkeleton {
     }
 
     /**
-     *
-     * @param path
+     * a grunt README with the install instructions for terminal
      */
     public void makeGruntReadme(String path){
         try {
             //populate the Readme-grunt.txt
             PrintWriter pw = new PrintWriter(new FileOutputStream(path + "//Readme-grunt.txt"));
 
-            pw.println("Grunt Instructions Readme\n" +
-                    "\n" +
-                    "https://gruntjs.com/getting-started\n" +
-                    "\n" +
+            pw.println("CONTENTS");
+            pw.println("1.0 - Grunt Instructions");
+            pw.println("2.0 - Fontello Web Fonts\n");
+            pw.println("\n1.0 Grunt Instructions Readme\n\n" +
+                    "https://gruntjs.com/getting-started\n\n" +
                     "- grunt must be installed on a per-project basis\n" +
                     "- you will need a package.json file in the root dir of the project\n" +
                     "- you will need a Gruntfile.js file in the root dir of the project\n" +
@@ -797,7 +773,21 @@ public class WebDevSkeleton {
                     "helpful guides\n" +
                     "https://addyosmani.com/blog/generate-multi-resolution-images-for-srcset-with-grunt/\n" +
                     "\n\n");
+
+            pw.println("2.0 - Fontello Web Fonts\n\n");
+            pw.println("- at http://fontello.com/ you can choose your own icons to generate an icon-font.\n" +
+                    "- The strategy here is to save on http requests by bundling a bnch of simple images into one font.\n" +
+                    "- once you have selected and downloaded the zip, drop it into your project folder. Rename if you like.\n" +
+                    "- the link should be in the html already \n" +
+                    "- to use your icons, add class=\"icon-ICON-NAME to whatever element you want the icon in\" \n" +
+                    "(in the css/fontello.css file you can see the class names of each of the icons).\n" +
+                    "for usecase: standalone icons, you can get rid of the margins by putting this code at end of fontello.css file\n" +
+                    "i[class^=\"icon-\"]:before, i[class*=\" icon-\"]:before {\n" +
+                    "  margin: 0;\n" +
+                    "}\n" +
+                    "(this of course pre-supposes that you put all icons in <i> elements.\n\n");
             pw.close();
+            System.out.println("gruntReadme created. See here for grunt plug in instructions");
 
             } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -831,7 +821,7 @@ public class WebDevSkeleton {
             pw3.println("/bower_components/");
             pw3.println("/node_modules/");
             pw3.close();
-
+            System.out.println("github files - README.md, LICENSE and .gitignore - created and populated");
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -843,24 +833,23 @@ public class WebDevSkeleton {
 
     public static void main(String[] args) {
 
+//        Scanner reader = new Scanner(System.in);
+//        System.out.println("Enter the file name. use underscores to separate words: ");
+//        String projName = reader.nextLine();
+//        reader.close();
+
         DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date d = new Date();
         String date = sdf.format(d);
 
         String path = System.getProperty("user.home") + "/Desktop/" + args[0];
-
         System.out.println(System.getProperty("user.home"));
 
-
         if (args.length == 1) {
-
             String proj = args[0];
             System.out.println("project name input: " + proj);
-
             System.out.println("----------------------");
-
             WebDevSkeleton creator = new WebDevSkeleton();
-
             System.out.println(creator);
             creator.makeHTMLTemplate(date, path, proj);
             creator.makeCSSTemplate(date, path, proj);
@@ -871,15 +860,10 @@ public class WebDevSkeleton {
             creator.makeGruntFile(path);
             creator.makeGruntReadme(path);
             creator.makeGitHubFiles(date, path, proj);
-
-
             System.out.println("----------------------");
 
         } else {
             System.out.println("enter your file name as an argument");
-
         }
     } //main
-
-
 }
