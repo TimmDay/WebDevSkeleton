@@ -6,6 +6,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Scanner;
 
+
 // TODO desktop icon, simple GUI with some inputs
 // TODO prompt user for input: project name, one word like camelCase or dash-split
 // save this to variable, use it to title files
@@ -100,13 +101,13 @@ public class WebDevSkeleton {
             //populate css file
             PrintWriter pw = new PrintWriter(new FileOutputStream(path));
             pw.println("/** Project: " +proj+ "\n\tDate: " + date+ "\n\tAuthor: Tim Day\n*/\n");
-            pw.println("/* catchall - no-scroll resizing for smaller devices */");
+            pw.println("/* no-scroll resizing for smaller devices */");
             pw.println("img, embed, object, video {");
             pw.println("  max-width: 100%;");
             pw.println("  height: auto;");
             pw.println("}");
             pw.println("/* ACCESSIBILITY */");
-            pw.println("// tap target and clearance space for smaller devices */");
+            pw.println("/* tap target and clearance space for smaller devices */");
             pw.println("nav a, button {");
             pw.println("  min-height: 48px;");
             pw.println("  min-width: 48px;");
@@ -115,6 +116,15 @@ public class WebDevSkeleton {
             pw.println("header, nav, main, footer, article, section, aside {");
             pw.println("  display: block;");
             pw.println("}");
+            pw.println("\n/* NAV */\n" +
+                    "nav li {\n" +
+                    "  display: inline;\n" +
+                    "}\n" +
+                    "nav li a {\n" +
+                    "  text-decoration: none;\n" +
+                    "  text-shadow: 1px 2px 2px #aaa;\n" +
+                    "  color: #000;\n" +
+                    "}");
             pw.close();
 
             System.out.println("Styles directory is created!");
